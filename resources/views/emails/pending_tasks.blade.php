@@ -5,7 +5,7 @@
     <title>Your Pending Tasks for Today</title>
 </head>
 <body>
-    <h1>Your Pending Tasks for Today</h1>
+    <h1> Hi {{$name}}Your Pending Tasks for Today</h1>
     <ul>
         @foreach ($tasks as $task)
             <li>

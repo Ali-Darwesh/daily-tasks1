@@ -3,22 +3,51 @@
 namespace App\Mail;
 
 use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
 
 class PendingTasksEmail extends Mailable
 {
-    use SerializesModels;
+    protected $tasks;
+    protected $userName;
 
-    public $tasks;
-
-    public function __construct($tasks)
+    /**
+     * Create a new message instance.
+     */
+    public function __construct($user_name,$tasks)
     {
-        $this->tasks = $tasks;
+        $this->userName=$user_name;
+        $this->tasks=$tasks;
     }
 
-    public function build()
+    /**
+     * Get the message envelope.
+     */
+    public function envelope(): Envelope
     {
-        return $this->subject('Your Pending Tasks for Today')
-                    ->view('emails.pending_tasks'); // Use your Blade view here
+        return new Envelope(
+            subject: 'Pending Tasks Mail For You',
+        );
+    }
+
+    /**
+     * Get the message content definition.
+     */
+    public function content(): Content
+    {
+        return new Content(
+            view: 'emails.pending_tasks',
+            with: ['name'=>$this->userName,'tasks'=>$this->tasks]
+        );
+    }
+
+    /**
+     * Get the attachments for the message.
+     *
+     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     */
+    public function attachments(): array
+    {
+        return [];
     }
 }

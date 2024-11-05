@@ -31,11 +31,9 @@ class SendDailyPendingTasksEmail extends Command
 
             if ($pendingTasks->isNotEmpty()) {
                 // Send email to the user if they have pending tasks
-                Mail::to($user->email)->send(new PendingTasksEmail($pendingTasks));
-                $this->info('Email sent to: ' . $user->email);
-            } else {
-                $this->info('No pending tasks for: ' . $user->email);
-            }
-        }
-    }
+                Mail::to($user->email)->send(new PendingTasksEmail($user->name,$user->tasks));
+            } 
+        
+        
+    }}
 }
