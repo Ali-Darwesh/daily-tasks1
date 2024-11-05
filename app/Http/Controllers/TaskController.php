@@ -22,9 +22,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks = Task::all(); // Get all tasks
+        return view('tasks.index', compact('tasks')); // Return the index view with the tasks
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -34,7 +34,15 @@ class TaskController extends Controller
         $task=$this->taskService->createTask($validateData);
         return $this->success($task['data'],$task['message'],$task['status']);
     }
-
+    public function edit(Task $task)
+    {
+        return view('tasks.edit', compact('task')); // Return the task edit form
+    }
+    // Show form to create a new task
+    public function create()
+    {
+        return view('tasks.create');
+    }
     /**
      * Display the specified resource.
      */

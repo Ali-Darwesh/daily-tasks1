@@ -16,6 +16,11 @@ class Task extends Model
         'assigned_to'
 
     ]; 
+    // In your Task model (Task.php)
+protected $casts = [
+    'due_date' => 'datetime', // or 'date' if it's just a date and not a datetime
+];
+
     public function user(){
         return $this->belongsTo(User::class);
     }

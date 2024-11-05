@@ -1,5 +1,5 @@
 <?php
-
+namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -14,8 +14,9 @@ class RolePermissionSeeder extends Seeder
         Permission::create(['name' => 'edit-users']);
         Permission::create(['name' => 'delete-users']);
             // on posts
-        Permission::create(['name' => 'create-posts']);
-        Permission::create(['name' => 'edit-posts']);
+        Permission::create(['name' => 'create-tasks']);
+        Permission::create(['name' => 'edit-tasks']);
+        Permission::create(['name' => 'update-task-status']);
         Permission::create(['name' => 'delete-posts']);
 
         // role
@@ -23,10 +24,12 @@ class RolePermissionSeeder extends Seeder
         
         $adminRole->givePermissionTo([
             'create-users',
+            'edit-users',
             'delete-users',
-            'create-posts',
-            'edit-posts',
-            'delete-posts',
+            'create-tasks',
+            'edit-tasks',
+            'update-task-status',
+            'delete-tasks',
         ]);
     }
 }
